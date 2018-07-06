@@ -54,7 +54,7 @@ class DataguruController extends Controller
             $datagurus->poto= $filename;
         }
         $datagurus->save();
-        return redirect()->route('dataguru.index');
+        return redirect()->route('/datagurus.index');
     }
 
     /**
@@ -63,7 +63,7 @@ class DataguruController extends Controller
      * @param  \App\dataguru  $dataguru
      * @return \Illuminate\Http\Response
      */
-    public function show(dataguru $dataguru)
+    public function show(dataguru $datagurus)
     {
          $datagurus = dataguru::findOrFail($id);
         return view('dataguru.show',compact('datagurus'));
@@ -91,10 +91,14 @@ class DataguruController extends Controller
     public function update(Request $request, dataguru $dataguru)
     {
          $this->validate($request,[
-            'nama' => 'required|'
+            'nama' => 'required|max:255',
+            'jabatan' => 'required|min:2',
+            'poto' => 'required|min:2',
         ]);
         $datagurus = dataguru::findOrFail($id);
         $datagurus->nama = $request->nama;
+         $datagurus->jabatan = $request->jabatan;
+          $datagurus->poto = $request->poto;
         $datagurus->save();
         return redirect()->route('dataguru.index');
     }
@@ -105,7 +109,7 @@ class DataguruController extends Controller
      * @param  \App\dataguru  $dataguru
      * @return \Illuminate\Http\Response
      */
-    public function destroy(dataguru $dataguru)
+    public function destroy(dataguru $datagurus)
     {
         //
     }

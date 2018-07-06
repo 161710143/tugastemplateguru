@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\kategoripasilitas;
+use App\kategori_pasilitas;
 use Illuminate\Http\Request;
 
 class KategoripasilitasController extends Controller
@@ -14,7 +14,8 @@ class KategoripasilitasController extends Controller
      */
     public function index()
     {
-        //
+        $kategoripasilitas = kategori_pasilitas::all();
+        return view('kategori_pasilitas.index',compact('kategoripasilitas'));
     }
 
     /**
@@ -24,7 +25,7 @@ class KategoripasilitasController extends Controller
      */
     public function create()
     {
-        //
+        return view('kategori_pasilitas.create');
     }
 
     /**
@@ -35,7 +36,13 @@ class KategoripasilitasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'nama_pasilitas' => 'required|'
+        ]);
+        $kategoripasilitas = new kategori_pasilitas;
+        $kategoripasilitas->nama_pasilitas = $request->nama_pasilitas;
+        $kategoripasilitas->save();
+        return redirect()->route('kategoripasilitas.index');
     }
 
     /**
@@ -57,7 +64,8 @@ class KategoripasilitasController extends Controller
      */
     public function edit(kategoripasilitas $kategoripasilitas)
     {
-        //
+        $kategoripasilitas = kategori_pasilitas::findOrFail($id);
+        return view('kategori_pasilitas.edit',compact('kategoripasilitas'));
     }
 
     /**
@@ -69,7 +77,13 @@ class KategoripasilitasController extends Controller
      */
     public function update(Request $request, kategoripasilitas $kategoripasilitas)
     {
-        //
+         $this->validate($request,[
+            'nama_pasilitas' => 'required|'
+        ]);
+        $kategoripasilitas = kategori_pasilitas::findOrFail($id);
+        $kategoripasilitas->nama_pasilitas = $request->nama_pasilitas;
+        $kategoripasilitas->save();
+        return redirect()->route('kategoripasilitas.index');
     }
 
     /**
@@ -80,6 +94,8 @@ class KategoripasilitasController extends Controller
      */
     public function destroy(kategoripasilitas $kategoripasilitas)
     {
-        //
+        $kategoripasilitas = kategori_pasilitas::findOrFail($id);
+        $kategoripasilitas->delete();
+        return redirect()->route('kategoripasilitas.index');
     }
 }

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class pasilitas extends Model
 {
     protected $table='pasilitas';
-    protected $fillable=['nama','poto','kategoripasilitas_id','deskripsi'];
+    protected $fillable=['nama','poto','kategoripasilitas_id'];
     public $timestamps=true;
 
     public function kategori_pasilitas()

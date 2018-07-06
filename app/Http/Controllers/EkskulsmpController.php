@@ -6,15 +6,11 @@ use App\ekskulsmp;
 use Illuminate\Http\Request;
 
 class EkskulsmpController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+ {
     public function index()
     {
-        //
+         $eskuls =ekskulsmp::all();
+        return view('eskull.index',compact('eskuls')); 
     }
 
     /**
@@ -24,8 +20,7 @@ class EkskulsmpController extends Controller
      */
     public function create()
     {
-        //
-    }
+        return view('eskull.create');     }
 
     /**
      * Store a newly created resource in storage.
@@ -35,51 +30,74 @@ class EkskulsmpController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+         $this->validate($request,[
+            'nama' => 'required|max:255',
+             'poto' => 'required|min:2',
+             'content' => 'required|min:2',
+           
+        ]);
+
+        $eskuls = new ekskulsmp;
+        $eskuls->nama = $request->nama;
+        $eskuls->poto = $request->poto;
+        $eskuls->content = $request->content;
+        $eskuls->save();
+        return redirect()->route('eskuls.index');     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\ekskulsmp  $ekskulsmp
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(ekskulsmp $ekskulsmp)
+    public function show($id)
     {
-        //
-    }
+        $eskuls = ekskulsmp::findOrFail($id);
+        return view('eskull.show',compact('eskuls'));    }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\ekskulsmp  $ekskulsmp
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(ekskulsmp $ekskulsmp)
+    public function edit($id)
     {
-        //
-    }
+        $eskuls = ekskulsmp::findOrFail($id);
+        return view('eskull.edit',compact('eskuls'));     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\ekskulsmp  $ekskulsmp
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ekskulsmp $ekskulsmp)
+    public function update(Request $request, $id)
     {
-        //
-    }
+        $this->validate($request,[
+             'nama' => 'required|max:255',
+            'poto' => 'required|min:2',
+             'content' => 'required|min:2',
+            
+        ]);
+
+        $eskuls = ekskulsmp::findOrFail($id);
+        $eskuls->nama = $request->nama;
+        $eskuls->poto = $request->poto;
+        $eskuls->content= $request->content;
+        $eskuls->save();
+        return redirect()->route('eskuls.index');       }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\ekskulsmp  $ekskulsmp
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ekskulsmp $ekskulsmp)
+    public function destroy($id)
     {
-        //
-    }
+         $eskuls = ekskulsmp::findOrFail($id);
+        $eskuls->delete();
+        return redirect()->route('eskuls.index');    }
 }

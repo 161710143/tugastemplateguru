@@ -19,3 +19,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/datagurus', 'DataguruController');
+Route::resource('/pasilitas', 'PasilitasController');
+Route::resource('/kategoripasilitas', 'KategoripasilitasController');
+Route::resource('/ekskulsmp', 'EkskulsmpController');

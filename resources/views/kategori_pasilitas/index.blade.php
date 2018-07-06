@@ -4,8 +4,8 @@
 	<div class="container">
 		<div class="col-md-12">
 			<div class="panel panel-primary">
-			  <div class="panel-heading">Data Guru
-			  	<div class="panel-title pull-right"><a href="{{ route('datagurus.create') }}">Tambah</a>
+			  <div class="panel-heading">Judul Kategori
+			  	<div class="panel-title pull-right"><a href="{{ route('kategoripasilitas.create') }}">Tambah</a>
 			  	</div>
 			  </div>
 			  <div class="panel-body">
@@ -14,32 +14,27 @@
 				  	<thead>
 			  		<tr>
 			  		  <th>No</th>
-					  <th>Nama Guru</th>
-					  <th>Jabatan</th>
-					  <th>Foto</th>
+					  <th>Nama artikel</th>
 					  <th colspan="3">Action</th>
 			  		</tr>
 				  	</thead>
 				  	<tbody>
 				  		<?php $nomor = 1; ?>
 				  		@php $no = 1; @endphp
-				  		@foreach($datagurus as $data)
+				  		@foreach($kategoripasilitas as $data)
 				  	  <tr>
 				    	<td>{{ $no++ }}</td>
-						<td>{{ $data->nama}}</td>
-				    	<td>{{ $data->jabatan }}</td>
-				    	<td>{{ $data->poto }}</td>
-				    	<td><img src="{{'assets/admin/images/icon/'.$data->foto.''}}"width"70" height="70"></td>
+				    	<td>{{ $data->nama_pasilitas}}</td>
 				    	
 
 <td>
-	<a class="btn btn-warning" href="{{ route('datagurus.edit',$data->id) }}">Edit</a>
+	<a class="btn btn-warning" href="{{ route('kategoripasilitas.edit',$data->id) }}">Edit</a>
 </td>
 <td>
-	<a href="{{ route('datagurus.show',$data->id) }}" class="btn btn-success">Show</a>
+	<a href="{{ route('kategoripasilitas.show',$data->id) }}" class="btn btn-success">Show</a>
 </td>
 <td>
-	<form method="post" action="{{ route('datagurus.destroy',$data->id) }}">
+	<form method="post" action="{{ route('kategoripasilitas.destroy',$data->id) }}">
 		<input name="_token" type="hidden" value="{{ csrf_token() }}">
 		<input type="hidden" name="_method" value="DELETE">
 
